@@ -14,34 +14,26 @@ def main():
 	csvw = csv.writer(heisefile, delimiter = ';')
 	
 		
-	for page in range (1,4,1):
-		heise1_url = "https://www.heise.de/thema/https"+str(page) 
-		heise2_url = "https://www.heise.de/thema/https?"+str(page)+"seite=1" 
-		heies3_url = "https://www.heise.de/thema/https?"+str(page)+"seite=2"
-		heise4_url = "https://www.heise.de/thema/https?"+str(page)+"seite=3"	
+	for page in range (0,3,1):
+		#heise1_url = "https://www.heise.de/thema/https"
+		heise_url = "https://www.heise.de/thema/https?seite="+str(page) 
+		#heise_url = "https://www.heise.de/thema/https?seite="+str(page)
+		#heise_url = "https://www.heise.de/thema/https?seite="+str(page)	
 		
 		
 		content = getPage(heise_url).find("div", {"class":"keywordliste"})
-		content = content.findALL("header")
+		content = content.findAll("header")
 	
-		#for wortliste in content:
-		#	wortlisten = wortliste.text.encode('utf-8')
-		#	txt = wortlisten.split()
-		
-			for t in txt:
-				txt.append(t.text.encode('utf-8'))
-				txt = t.split()
-            csvw.writerow(txt)
-				
+		for wortliste in content:
+			wortlisten = wortliste.text.encode('utf-8')
+			txt = wortlisten.split()
+		csvw.writerow(txt)
 	
 	
 	heisefile.close()
 
 	print("Done!")
+	
+if __name__ == '__main__':
+	main() 
 		
-#a = soup.find_all("keywordliste")
-
-#for link in a:
-#	print link
-
-#print a
